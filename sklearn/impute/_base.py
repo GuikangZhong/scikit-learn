@@ -258,6 +258,10 @@ class SimpleImputer(_BaseImputer):
                 new_ve = ValueError("Cannot use {} strategy with non-numeric "
                                     "data:\n{}".format(self.strategy, ve))
                 raise new_ve from None
+            elif "Input contains NaN" in str(ve):
+                new_ve = ValueError("Cannot use {} strategy with non-numeric "
+                    "data:\n{}\nTo treat None as np.NaN, recommend using \"missing_values=np.NaN\" when instantiate the imputer".format(self.strategy, ve))
+                raise new_ve from None
             else:
                 raise ve
 
